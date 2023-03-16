@@ -9,7 +9,9 @@
 </head>
 <body>
     <?php 
-        echo 'My page'
+        include "db/users.php"; // This will include all users functions
+
+        fetchUsers(); // fetch users from database
     ?>
 </body>
 </html>

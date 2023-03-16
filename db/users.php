@@ -23,6 +23,4 @@
         mysqli_free_result($result);
         $mysqli->close();
     }
-
-    fetchUsers();
 ?>
