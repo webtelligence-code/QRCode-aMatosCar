@@ -1,26 +1,44 @@
-<?php 
-    include 'connect.php';    
+<?php
 
-    function fetchUsers() {
-        $mysqli = OpenCon();
+declare(strict_types=1);
 
-        $sql = "SELECT * FROM users";
+use chillerlan\QRCode\QRCode;
+use chillerlan\QRCode\QROptions;
 
-        $result = $mysqli->query($sql);
-        
-        if($result->num_rows > 0) {
-            while($row = $result->fetch_assoc()) {
-                printf(
-                    "Nome: %s,Concessão: %s, Função: %s <br />",
-                    $row["NAME"],
-                    $row["CONCESSAO"],
-                    $row["FUNCAO"],
-                );
-            }
-        } else {
-            printf("No record found on database. <br />");
+include 'connect.php';
+
+// This function will fetch all the database users to an array.
+function fetchUsers()
+{
+    $conn = OpenCon();
+
+    // Prepare the query
+    $sql = "SELECT * FROM users";
+
+    // Execute the query
+    $result = mysqli_query($conn, $sql);
+
+    $users = array();
+
+    if (mysqli_num_rows($result) > 0) {
+        // Assign data to an array
+        while ($row = mysqli_fetch_assoc($result)) {
+
+            $user = array(
+                "Nome" => $row["NAME"],
+                "Concessão" => $row["CONCESSAO"],
+                "Função" => $row["FUNCAO"],
+            );
+
+            array_push($users, $user);
         }
-        mysqli_free_result($result);
-        $mysqli->close();
+
+        return $users;
+    } else {
+        // No records found
+        printf("No record found on database. <br />");
     }
-?>
+
+    // Close connection
+    CloseCon($conn);
+}
