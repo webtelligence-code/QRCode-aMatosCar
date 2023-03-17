@@ -1,6 +1,6 @@
 {
     "require": {
-        "bacon/bacon-qr-code": "^2.0",
-        "chillerlan/php-qrcode": "^4.3"
+        "endroid/qr-code": "^4.8",
+        "bacon/bacon-qr-code": "^2.0"
     }
 }

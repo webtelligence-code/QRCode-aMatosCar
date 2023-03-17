@@ -1,29 +1,21 @@
 <?php
 
-// Function to open connection
-function OpenCon()
-{
-    $dbhost = "localhost";
-    $dbuser = "root";
-    $dbpass = "matoscarroot";
-    $db = "aMatosCar";
+// Define the database credentials
+$dbhost = "localhost";
+$dbuser = "root";
+$dbpass = "matoscarroot";
+$db = "aMatosCar";
 
-    // Create a connection
-    $conn = mysqli_connect($dbhost, $dbuser, $dbpass, $db);
+// Create a new mysqli object and establish a connection
+$conn = new mysqli($dbhost, $dbuser, $dbpass, $db);
 
 
-    // Check connection
-    if (!$conn) {
-        die("Connection failed: " . mysqli_connect_error());
-    } else {
-        echo "Connection successful! <br />";
-    }
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+} 
 
-    return $conn;
-}
+echo "Connection successful! <br />";
 
-// Function to close connection
-function CloseCon($conn)
-{
-    $conn->close();
-}
+// Close the connection using mysqli object's close() method
+return $conn;;

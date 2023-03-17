@@ -1,22 +1,3 @@
-<?php 
-    declare(strict_types=1);
-
-    use chillerlan\QRCode\QRCode;
-    use chillerlan\QRCode\QROptions;
-    
-    require_once('./../vendor/autoload.php');
-    
-    $options = new QROptions(
-      [
-        'eccLevel' => QRCode::ECC_L,
-        'outputType' => QRCode::OUTPUT_MARKUP_SVG,
-        'version' => 5,
-      ]
-    );
-    
-    $qrcode = (new QRCode($options))->render('Manuel Carreiras');
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -48,6 +29,7 @@
                 echo '<td>' . $row['Nome'] . '</td>';
                 echo '<td>' . $row['Concessão'] . '</td>';
                 echo '<td>' . $row['Função'] . '</td>';
+                echo '<td><img src="' . $row['QRCode'] . '"></td>';
                 echo '</tr>';
             }
         ?>
