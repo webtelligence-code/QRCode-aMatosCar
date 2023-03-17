@@ -4,9 +4,17 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitc4dea7776dca9cb66847e5a9c5a57f05
+class ComposerStaticInit70b54d7022a57d7027d63840366ac2ed
 {
+    public static $files = array (
+        'a9ed0d27b5a698798a89181429f162c5' => __DIR__ . '/..' . '/khanamiryan/qrcode-detector-decoder/lib/Common/customFunctions.php',
+    );
+
     public static $prefixLengthsPsr4 = array (
+        'Z' => 
+        array (
+            'Zxing\\' => 6,
+        ),
         'E' => 
         array (
             'Endroid\\QrCode\\' => 15,
@@ -22,6 +30,10 @@ class ComposerStaticInitc4dea7776dca9cb66847e5a9c5a57f05
     );
 
     public static $prefixDirsPsr4 = array (
+        'Zxing\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/khanamiryan/qrcode-detector-decoder/lib',
+        ),
         'Endroid\\QrCode\\' => 
         array (
             0 => __DIR__ . '/..' . '/endroid/qr-code/src',
@@ -43,9 +55,9 @@ class ComposerStaticInitc4dea7776dca9cb66847e5a9c5a57f05
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitc4dea7776dca9cb66847e5a9c5a57f05::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitc4dea7776dca9cb66847e5a9c5a57f05::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitc4dea7776dca9cb66847e5a9c5a57f05::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit70b54d7022a57d7027d63840366ac2ed::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit70b54d7022a57d7027d63840366ac2ed::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit70b54d7022a57d7027d63840366ac2ed::$classMap;
 
         }, null, ClassLoader::class);
     }
