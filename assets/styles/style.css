@@ -9,3 +9,21 @@ tbody {
 .bg-m-gray {
     background-color: #7d7e84;
 }
+
+.btn-m-o-orange {
+    border: #ed6337 1px solid;
+}
+
+.btn-m-o-orange:hover {
+    border:#ed6337 1px solid;
+    background-color: #ed6337;
+    color: white
+}
+
+.btn-m-h-orange:hover {
+    background-color: #ed6337;
+}
+
+.rounded-btn {
+    border-radius: 10px;
+}
