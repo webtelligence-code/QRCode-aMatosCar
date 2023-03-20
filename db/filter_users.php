@@ -1,13 +1,13 @@
 <?php
 include 'users.php';
 
-var_dump($_GET);
-
 if (isset($_GET['city'])) {
     $data_array = fetchUsersByCity($_GET['city']);
 } else {
     $data_array = fetchUsers();
 }
+
+var_dump($_GET);
 
 foreach ($data_array as $row) {
     echo '<tr>';

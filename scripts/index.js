@@ -56,12 +56,17 @@ cities.forEach((city) => {
  * @param {string} city 
  */
 function updateTableByCity(city) {
-    $.get(`db/filter_users.php`, {city}, function (data) {
-        console.log(data)
-        $('#users-tbody').html(data);
-    }).fail(function () {
-        console.error("AJAX request failed");
-    });
+    $.ajax({
+        url: '../db/filter_users.php',
+        type: 'GET',
+        data: {city},
+        success: function(response) {
+            $('#users-tbody').html(response);
+        },
+        error: function() {
+            // Do something to handle error
+        }
+    })
 }
 
 ///////////////////////////////////////////////////////////////////////////////
