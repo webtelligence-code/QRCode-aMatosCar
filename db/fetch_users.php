@@ -27,7 +27,7 @@ $stmt->bind_result($name, $concessao, $funcao);
 $users = array();
 
 while ($stmt->fetch()) {
-    // Filename
+    // Filename path
     $filename = 'assets/qrcodes/qrcode-' . $name . '-' . $concessao . '.png';
 
     // Check if the QR code image file already exists
@@ -88,6 +88,7 @@ function generateQrCode($filename, $name)
     $label = Label::create('')
         ->setTextColor(new Color(237, 99, 55));
 
+    // Add logo and label to the QR code
     $qrCodeResult = $writer->write($qrCode, $logo, $label);
 
     // Save it to a file

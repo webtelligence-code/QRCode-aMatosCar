@@ -11,9 +11,9 @@
     <link rel="stylesheet" href="assets/styles/style.css">
 </head>
 
-<body>
+<body style="padding-top: 60px;">
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg bg-light">
+    <nav class="navbar fixed-top navbar-expand-lg" style="background-color: white;">
         <div class="container-fluid">
             <div class="container-fluid">
                 <div class="row align-items-center">
@@ -94,7 +94,7 @@
             // Clear the table body
             tbody.innerHTML = '';
 
-            // Loop to populate the users table
+            // Loop to populate row in the users table
             filteredUsers.forEach(user => {
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
@@ -105,7 +105,7 @@
                         <td><img src="${user.QRCODE}"></td>
                     </tr>
                 `;
-                tbody.appendChild(tr);
+                tbody.appendChild(tr); // Append user row to table body
             });
         }
         updateTable(); // Fetch all users initially
@@ -114,17 +114,19 @@
         concessionSelect.addEventListener('change', event => {
             const selectedConcession = event.target.value;
             if (selectedConcession === 'all') {
+                // Fetch all users
                 filteredUsers = [...users];
             } else {
+                // Fetch only the users associated with the selected concession
                 filteredUsers = users.filter(user => user.CONCESSAO === selectedConcession);
             }
-            updateTable();
+            updateTable(); // Update the table
         });
 
         // Search input event listener on input event
         searchInput.addEventListener('input', event => {
-            const searchQuery = event.target.value.trim().toLowerCase();
-            const selectedConcession = concessionSelect.value;
+            const searchQuery = event.target.value.trim().toLowerCase(); // Search query formated
+            const selectedConcession = concessionSelect.value; // Grab the selected concession value
 
             // Condition to verify if search query matches selected concession
             if (searchQuery === '' && selectedConcession === 'all') {
@@ -140,12 +142,12 @@
                 filteredUsers = users.filter(user => user.NAME.toLowerCase().includes(searchQuery) && user.CONCESSAO === selectedConcession);
             }
 
-            updateTable();
+            updateTable(); // Update the table
         });
 
+        // Event listener for download pdf button
         downloadButton.addEventListener('click', () => {
-            // Get the current date and time in Portugal
-            window.print();
+            window.print(); // Print the page to pdf
         })
     </script>
 </body>
