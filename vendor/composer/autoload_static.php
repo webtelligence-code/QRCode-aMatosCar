@@ -6,15 +6,7 @@ namespace Composer\Autoload;
 
 class ComposerStaticInit70b54d7022a57d7027d63840366ac2ed
 {
-    public static $files = array (
-        'a9ed0d27b5a698798a89181429f162c5' => __DIR__ . '/..' . '/khanamiryan/qrcode-detector-decoder/lib/Common/customFunctions.php',
-    );
-
     public static $prefixLengthsPsr4 = array (
-        'Z' => 
-        array (
-            'Zxing\\' => 6,
-        ),
         'E' => 
         array (
             'Endroid\\QrCode\\' => 15,
@@ -30,10 +22,6 @@ class ComposerStaticInit70b54d7022a57d7027d63840366ac2ed
     );
 
     public static $prefixDirsPsr4 = array (
-        'Zxing\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/khanamiryan/qrcode-detector-decoder/lib',
-        ),
         'Endroid\\QrCode\\' => 
         array (
             0 => __DIR__ . '/..' . '/endroid/qr-code/src',

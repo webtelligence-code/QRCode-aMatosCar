@@ -1,7 +1,6 @@
 {
     "require": {
         "endroid/qr-code": "^4.8",
-        "khanamiryan/qrcode-detector-decoder": "^2.0",
         "twbs/bootstrap": "^5.2"
     }
 }
