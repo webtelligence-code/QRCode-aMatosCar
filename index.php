@@ -15,46 +15,35 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg bg-light">
         <div class="container-fluid">
-            <a href="/">
-                <img src="https://amatoscar.pt/assets/media/general/logoamatoscar.webp" height="50px" />
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse mx-3" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item dropdown btn-m-h-orange rounded-btn">
-                        <a id="concession-text" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Concessão
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col text-white">
+                        <a href="/">
+                            <img src="https://amatoscar.pt/assets/media/general/logoamatoscar.webp" height="50px" />
                         </a>
-                        <ul class="dropdown-menu" id="concession-list">
-
-                        </ul>
-                    </li>
-                </ul>
-                <div class="d-flex">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item dropdown btn-m-h-orange rounded-btn">
-                            <a id="dropdown-search-by-text" class="nav-link dropdown-toggle me-3" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-
-                            </a>
-                            <ul class="dropdown-menu" id="search-by">
-
-                            </ul>
-                        </li>
-                    </ul>
-                    <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="" aria-label="Search">
-                        <button class="btn btn-m-o-orange" type="submit">Search</button>
-                    </form>
+                    </div>
+                    <div class="col-4 text-white text-center">
+                        <input placeholder="Insira o nome" class="text-center" id="search-input">
+                    </div>
+                    <div class="col text-white text-end">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <button type="button" id="download-button">Download PDF</button>
+                            </div>
+                            <div class="col">
+                                <select class="form-select form-select-sm rounded" id="concession-select">
+                                    <option value="all" selected>Todas as concessões</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
             </div>
         </div>
     </nav>
 
     <!-- Users Table -->
-    <table class="table text-center align-middle">
+    <table class="table text-center align-middle" id="users-table">
         <thead class="text-dark">
             <tr>
                 <th scope="col">Nome</th>
@@ -64,10 +53,101 @@
             </tr>
         </thead>
 
-        <tbody id="users-tbody">
-
-        </tbody>
+        <!-- Table body that will be populated -->
+        <tbody id="users-tbody"></tbody>
     </table>
+
+    <!-- Script -->
+    <script>
+        const users = <?php include 'db/fetch_users.php' ?>; // Grab all the users from database
+        const concessions = []; // Concessions array
+        console.log(Array.isArray(users)); // Verify if returns array
+        console.log(users); // Lofg the results
+
+        // Grab elements by ID
+        const concessionSelect = document.getElementById('concession-select');
+        const tbody = document.getElementById('users-tbody');
+        const searchInput = document.getElementById('search-input');
+        const downloadButton = document.getElementById('download-button');
+
+        // Loop through the users array to populate the concessions array
+        for (const user of users) {
+            if (!concessions.includes(user.CONCESSAO)) {
+                concessions.push(user.CONCESSAO); // push concessions to array
+            }
+        }
+
+        // Loop to populate concessions select options
+        for (const concession of concessions) {
+            const elemt = concession;
+            var option = document.createElement('option');
+            option.textContent = elemt;;
+            option.value = elemt;
+            concessionSelect.appendChild(option) // Add concession option to select list
+        }
+
+        // Iterate users array to filtered users
+        let filteredUsers = [...users];
+
+        // Function to update and populate the table
+        const updateTable = () => {
+            // Clear the table body
+            tbody.innerHTML = '';
+
+            // Loop to populate the users table
+            filteredUsers.forEach(user => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <tr>
+                        <td>${user.NAME}</td>
+                        <td>${user.CONCESSAO}</td>
+                        <td>${user.FUNCAO}</td>
+                        <td><img src="${user.QRCODE}"></td>
+                    </tr>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+        updateTable(); // Fetch all users initially
+
+        // Call filteredUsers function when the concession select element changes
+        concessionSelect.addEventListener('change', event => {
+            const selectedConcession = event.target.value;
+            if (selectedConcession === 'all') {
+                filteredUsers = [...users];
+            } else {
+                filteredUsers = users.filter(user => user.CONCESSAO === selectedConcession);
+            }
+            updateTable();
+        });
+
+        // Search input event listener on input event
+        searchInput.addEventListener('input', event => {
+            const searchQuery = event.target.value.trim().toLowerCase();
+            const selectedConcession = concessionSelect.value;
+
+            // Condition to verify if search query matches selected concession
+            if (searchQuery === '' && selectedConcession === 'all') {
+                filteredUsers = [...users]; // Output all users
+            } else if (searchQuery === '') {
+                // Output all users associated with selected concession
+                filteredUsers = users.filter(user => user.CONCESSAO === selectedConcession);
+            } else if (selectedConcession === 'all') {
+                // Output all users if no concession is selected
+                filteredUsers = users.filter(user => user.NAME.toLowerCase().includes(searchQuery));
+            } else {
+                // Output only users with matching name and selected concession
+                filteredUsers = users.filter(user => user.NAME.toLowerCase().includes(searchQuery) && user.CONCESSAO === selectedConcession);
+            }
+
+            updateTable();
+        });
+
+        downloadButton.addEventListener('click', () => {
+            // Get the current date and time in Portugal
+            window.print();
+        })
+    </script>
 </body>
 <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
 <script src="vendor/twbs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
