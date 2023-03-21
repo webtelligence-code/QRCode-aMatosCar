@@ -11,10 +11,6 @@ input:focus {
     outline-color: #ed6337;
 }
 
-tbody {
-    height: 200px;
-}
-
 button {
     background-color: white;
     border-radius: 50px;

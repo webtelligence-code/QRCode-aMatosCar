@@ -28,7 +28,7 @@ $users = array();
 
 while ($stmt->fetch()) {
     // Filename path
-    $filename = 'assets/qrcodes/qrcode-' . $name . '-' . $concessao . '.png';
+    $filename = 'assets/qrcodes/qrcode_' . $name . '_' . $concessao . '_' . $funcao . '.png';
 
     // Check if the QR code image file already exists
     if (file_exists($filename)) {

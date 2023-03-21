@@ -1,3 +1,7 @@
+<?php 
+    session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +9,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QRCode-aMatosCar</title>
+    <title>QRCode - A MatosCar</title>
     <link rel="icon" type="image" href="https://amatoscar.pt/assets/media/general/logoamatoscar.webp">
     <link rel="stylesheet" href="vendor/twbs/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/styles/style.css">
@@ -16,20 +20,33 @@
     <nav class="navbar fixed-top navbar-expand-lg" style="background-color: white;">
         <div class="container-fluid">
             <div class="container-fluid">
+
+                <!-- Row with 3 centered columns -->
                 <div class="row align-items-center">
+                    <!-- Left Column -->
                     <div class="col text-white">
                         <a href="/">
                             <img src="https://amatoscar.pt/assets/media/general/logoamatoscar.webp" height="50px" />
                         </a>
                     </div>
+
+                    <!-- Center Column -->
                     <div class="col-4 text-white text-center">
                         <input placeholder="Insira o nome" class="text-center" id="search-input">
                     </div>
+
+                    <!-- Right Column -->
                     <div class="col text-white text-end">
+
+                        <!-- Row with download button and concession dropdown -->
                         <div class="row align-items-center">
+
+                            <!-- Download Button -->
                             <div class="col">
                                 <button type="button" id="download-button">Download PDF</button>
                             </div>
+
+                            <!-- Concession list select dropdown -->
                             <div class="col">
                                 <select class="form-select form-select-sm rounded" id="concession-select">
                                     <option value="all" selected>Todas as concessões</option>
@@ -98,12 +115,10 @@
             filteredUsers.forEach(user => {
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
-                    <tr>
-                        <td>${user.NAME}</td>
-                        <td>${user.CONCESSAO}</td>
-                        <td>${user.FUNCAO}</td>
-                        <td><img src="${user.QRCODE}"></td>
-                    </tr>
+                    <td>${user.NAME}</td>
+                    <td>${user.CONCESSAO}</td>
+                    <td>${user.FUNCAO}</td>
+                    <td><img src="${user.QRCODE}"></td>
                 `;
                 tbody.appendChild(tr); // Append user row to table body
             });
