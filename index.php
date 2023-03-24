@@ -1,5 +1,5 @@
-<?php 
-    session_start();
+<?php
+session_start();
 ?>
 
 <!DOCTYPE html>
@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="assets/styles/style.css">
 </head>
 
-<body style="padding-top: 60px;">
+<body style="padding-top: 70px;">
     <!-- Navbar -->
     <nav class="navbar fixed-top navbar-expand-lg" style="background-color: white;">
         <div class="container-fluid">
@@ -48,7 +48,7 @@
 
                             <!-- Concession list select dropdown -->
                             <div class="col">
-                                <select class="form-select form-select-sm rounded" id="concession-select">
+                                <select id="concession-select">
                                     <option value="all" selected>Todas as concessões</option>
                                 </select>
                             </div>
@@ -61,7 +61,8 @@
 
     <!-- Users Table -->
     <table class="table text-center align-middle" id="users-table">
-        <thead class="text-dark">
+        <!-- Table head with columns name -->
+        <thead class="text-dark align-items-center">
             <tr>
                 <th scope="col">Nome</th>
                 <th scope="col">Concessão</th>
@@ -98,7 +99,7 @@
         for (const concession of concessions) {
             const elemt = concession;
             var option = document.createElement('option');
-            option.textContent = elemt;;
+            option.textContent = elemt;
             option.value = elemt;
             concessionSelect.appendChild(option) // Add concession option to select list
         }
@@ -114,6 +115,7 @@
             // Loop to populate row in the users table
             filteredUsers.forEach(user => {
                 const tr = document.createElement('tr');
+                tr.className = 'table-row'
                 tr.innerHTML = `
                     <td>${user.NAME}</td>
                     <td>${user.CONCESSAO}</td>
@@ -125,9 +127,27 @@
         }
         updateTable(); // Fetch all users initially
 
+        const sendAjaxPost = (selectedConcession) => {
+            $.ajax({
+                type: "POST",
+                url: "db/submission.php",
+                data: {
+                    selectedConcession
+                },
+                cache: false,
+                success: function(data) {
+                    alert(data);
+                },
+                error: function(xhr, status, error) {
+                    console.error(xhr);
+                }
+            });
+        }
+
         // Call filteredUsers function when the concession select element changes
         concessionSelect.addEventListener('change', event => {
             const selectedConcession = event.target.value;
+            sendAjaxPost(selectedConcession);
             if (selectedConcession === 'all') {
                 // Fetch all users
                 filteredUsers = [...users];

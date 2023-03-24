@@ -6,6 +6,10 @@ input {
     width: 75%;
 }
 
+input:hover {
+    border: #ed6337 1px solid;
+}
+
 input:focus {
     border: #ed6337 1px solid;
     outline-color: #ed6337;
@@ -26,8 +30,31 @@ button:hover {
 }
 
 select {
-    border: #ed6337 1px solid;
+    padding: 5px;
+    padding-inline: 10px;
+    border-radius: 50px;
+    border: #7d7e84 1px solid;
+}
+
+select:hover {
     border-color: #ed6337;
+}
+
+thead {
+    border-bottom: #7d7e84 2px solid;
+}
+
+th {
+    font-size: larger;
+}
+
+td {
+    font-size: larger;
+    border-bottom: #7d7e84 1px solid;
+}
+
+.table-row {
+    height: 300px;
 }
 
 .bg-m-orange {

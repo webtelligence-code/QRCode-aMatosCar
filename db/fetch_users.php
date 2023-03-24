@@ -74,7 +74,7 @@ function generateQrCode($filename, $name)
     $qrCode = QrCode::create($name)
         ->setEncoding(new Encoding('UTF-8'))
         ->setErrorCorrectionLevel(new ErrorCorrectionLevelLow())
-        ->setSize(125)
+        ->setSize(200)
         ->setMargin(0)
         ->setRoundBlockSizeMode(new RoundBlockSizeModeMargin())
         ->setForegroundColor(new Color(0, 0, 0))
@@ -82,7 +82,7 @@ function generateQrCode($filename, $name)
 
     // Create generic logo
     $logo = Logo::create('https://amatoscar.pt/assets/media/general/logoamatoscar.webp')
-        ->setResizeToWidth(75);
+        ->setResizeToWidth(100);
 
     // Create generic label
     $label = Label::create('')
