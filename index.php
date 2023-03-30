@@ -1,7 +1,3 @@
-<?php
-session_start();
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -79,8 +75,6 @@ session_start();
     <script>
         const users = <?php include 'db/fetch_users.php' ?>; // Grab all the users from database
         const concessions = []; // Concessions array
-        console.log(Array.isArray(users)); // Verify if returns array
-        console.log(users); // Lofg the results
 
         // Grab elements by ID
         const concessionSelect = document.getElementById('concession-select');
@@ -127,27 +121,9 @@ session_start();
         }
         updateTable(); // Fetch all users initially
 
-        const sendAjaxPost = (selectedConcession) => {
-            $.ajax({
-                type: "POST",
-                url: "db/submission.php",
-                data: {
-                    selectedConcession
-                },
-                cache: false,
-                success: function(data) {
-                    alert(data);
-                },
-                error: function(xhr, status, error) {
-                    console.error(xhr);
-                }
-            });
-        }
-
         // Call filteredUsers function when the concession select element changes
         concessionSelect.addEventListener('change', event => {
             const selectedConcession = event.target.value;
-            sendAjaxPost(selectedConcession);
             if (selectedConcession === 'all') {
                 // Fetch all users
                 filteredUsers = [...users];
