@@ -91,10 +91,9 @@
 
         // Loop to populate concessions select options
         for (const concession of concessions) {
-            const elemt = concession;
             var option = document.createElement('option');
-            option.textContent = elemt;
-            option.value = elemt;
+            option.textContent = concession;
+            option.value = concession;
             concessionSelect.appendChild(option) // Add concession option to select list
         }
 
